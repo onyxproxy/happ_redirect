@@ -49,16 +49,21 @@
         <button onclick="copyLink()">Скопировать ссылку</button>
     </div>
 
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
         // Получаем ссылку из параметра ?link=...
         const params = new URLSearchParams(window.location.search);
         const link = params.get('link');
         document.getElementById('link').textContent = link || 'Ссылка не указана';
 
+        // Инициализация Telegram Web App
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+
         function openHapp() {
-            if (link) {
-                window.location.href = link;
-            }
+            if (!link) return;
+            // Используем официальный метод Telegram для открытия ссылок
+            tg.openLink(link, { try_instant_view: false });
         }
 
         function copyLink() {
@@ -70,12 +75,12 @@
             });
         }
 
-        // Автоматически попытаться открыть при загрузке страницы
+        // Автоматически попытаться открыть при загрузке страницы (с задержкой)
         window.addEventListener('load', function() {
             if (link) {
-                // Небольшая задержка, чтобы страница отрисовалась
                 setTimeout(() => {
-                    window.location.href = link;
+                    // Пытаемся открыть через Telegram API, если не получится – покажем кнопку
+                    tg.openLink(link, { try_instant_view: false });
                 }, 500);
             }
         });
