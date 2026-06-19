@@ -9,7 +9,7 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             text-align: center;
             padding: 20px;
-            background: #f5f5f5;
+            background: #ffffff;
         }
         button {
             display: inline-block;
@@ -29,10 +29,14 @@
             color: #555;
         }
         code {
-            background: #eee;
+            background: #f0f0f0;
             padding: 4px 8px;
             border-radius: 6px;
             word-break: break-all;
+            font-size: 14px;
+        }
+        .status {
+            margin-top: 10px;
             font-size: 14px;
         }
     </style>
@@ -40,7 +44,8 @@
 <body>
     <h2>🚀 Автонастройка Happ</h2>
     <p>Нажмите кнопку ниже, чтобы открыть приложение Happ и импортировать подписку.</p>
-    <button onclick="openHapp()">Открыть Happ</button>
+    <button id="openBtn" onclick="openHapp()">Открыть Happ</button>
+    <div class="status" id="status"></div>
 
     <div class="fallback">
         <p>Не открылось? Скопируйте ссылку и вставьте в Happ вручную:</p>
@@ -59,11 +64,40 @@
         // Инициализация Telegram Web App
         const tg = window.Telegram.WebApp;
         tg.ready();
+        tg.expand(); // раскрываем на весь экран
+
+        // Пытаемся автоматически открыть ссылку при загрузке, но с осторожностью
+        window.addEventListener('load', function() {
+            if (!link) return;
+            // Пробуем через Telegram API (сработает, если не блокируется)
+            try {
+                tg.openLink(link, { try_instant_view: false });
+                // Если не сработало, пользователь всё равно увидит кнопку
+            } catch (e) {
+                console.log('auto openLink failed:', e);
+                // fallback не делаем, потому что кнопка всё равно есть
+            }
+        });
 
         function openHapp() {
-            if (!link) return;
-            // Используем официальный метод Telegram для открытия ссылок
-            tg.openLink(link, { try_instant_view: false });
+            if (!link) {
+                alert('Ошибка: ссылка не найдена');
+                return;
+            }
+            // Основной метод через Telegram API
+            try {
+                tg.openLink(link, { try_instant_view: false });
+                document.getElementById('status').innerText = 'Попытка открыть Happ...';
+            } catch (e) {
+                console.log('tg.openLink failed, trying window.open');
+                // Если API недоступен, пробуем обычный window.open
+                const newWindow = window.open(link, '_blank');
+                if (!newWindow) {
+                    document.getElementById('status').innerText = 'Не удалось открыть автоматически. Скопируйте ссылку вручную.';
+                } else {
+                    document.getElementById('status').innerText = 'Приложение должно открыться в новом окне.';
+                }
+            }
         }
 
         function copyLink() {
@@ -74,16 +108,6 @@
                 prompt('Скопируйте ссылку вручную:', link);
             });
         }
-
-        // Автоматически попытаться открыть при загрузке страницы (с задержкой)
-        window.addEventListener('load', function() {
-            if (link) {
-                setTimeout(() => {
-                    // Пытаемся открыть через Telegram API, если не получится – покажем кнопку
-                    tg.openLink(link, { try_instant_view: false });
-                }, 500);
-            }
-        });
     </script>
 </body>
 </html>
