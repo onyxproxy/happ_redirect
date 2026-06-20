@@ -10,10 +10,15 @@
             text-align: center;
             padding: 20px;
             background: #ffffff;
+            margin: 0;
+        }
+        h2 {
+            margin-top: 10px;
+            margin-bottom: 5px;
         }
         button {
             display: inline-block;
-            margin: 10px;
+            margin: 10px 0;
             padding: 14px 24px;
             background: #007aff;
             color: #fff;
@@ -24,12 +29,50 @@
             width: 80%;
             max-width: 300px;
         }
-        .fallback {
-            margin-top: 20px;
+        .store-buttons {
+            margin-top: 25px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        .store-buttons p {
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: bold;
+        }
+        .store-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .store-icon {
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .store-icon img {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .store-icon:hover {
+            transform: scale(1.1);
+        }
+        .store-label {
+            font-size: 12px;
             color: #555;
+            margin-top: 4px;
+        }
+        .fallback {
+            margin-top: 25px;
+            color: #555;
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 10px;
         }
         code {
-            background: #f0f0f0;
+            background: #eee;
             padding: 4px 8px;
             border-radius: 6px;
             word-break: break-all;
@@ -38,6 +81,7 @@
         .status {
             margin-top: 10px;
             font-size: 14px;
+            color: #666;
         }
     </style>
 </head>
@@ -47,6 +91,32 @@
     <button id="openBtn" onclick="openHapp()">Открыть Happ</button>
     <div class="status" id="status"></div>
 
+    <!-- Блок со ссылками на скачивание -->
+    <div class="store-buttons">
+        <p>📱 Ещё нет приложения? Скачайте под ваше устройство:</p>
+        <div class="store-icons">
+            <div>
+                <a class="store-icon" href="https://apps.apple.com/ru/app/happ-proxy-utility-plus/id6746188973" target="_blank" rel="noopener">
+                    <img src="https://img.icons8.com/color/48/mac-os.png" alt="iOS">
+                </a>
+                <div class="store-label">iOS</div>
+            </div>
+            <div>
+                <a class="store-icon" href="https://play.google.com/store/apps/details?id=com.happproxy" target="_blank" rel="noopener">
+                    <img src="https://img.icons8.com/color/48/android-os.png" alt="Android">
+                </a>
+                <div class="store-label">Android</div>
+            </div>
+            <div>
+                <a class="store-icon" href="https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe" target="_blank" rel="noopener">
+                    <img src="https://img.icons8.com/color/48/windows-10.png" alt="Windows">
+                </a>
+                <div class="store-label">Windows</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ручное копирование -->
     <div class="fallback">
         <p>Не открылось? Скопируйте ссылку и вставьте в Happ вручную:</p>
         <code id="link"></code>
@@ -56,41 +126,23 @@
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
-        // Получаем ссылку из параметра ?link=...
         const params = new URLSearchParams(window.location.search);
         const link = params.get('link');
         document.getElementById('link').textContent = link || 'Ссылка не указана';
 
-        // Инициализация Telegram Web App
         const tg = window.Telegram.WebApp;
         tg.ready();
-        tg.expand(); // раскрываем на весь экран
-
-        // Пытаемся автоматически открыть ссылку при загрузке, но с осторожностью
-        window.addEventListener('load', function() {
-            if (!link) return;
-            // Пробуем через Telegram API (сработает, если не блокируется)
-            try {
-                tg.openLink(link, { try_instant_view: false });
-                // Если не сработало, пользователь всё равно увидит кнопку
-            } catch (e) {
-                console.log('auto openLink failed:', e);
-                // fallback не делаем, потому что кнопка всё равно есть
-            }
-        });
+        tg.expand();
 
         function openHapp() {
             if (!link) {
                 alert('Ошибка: ссылка не найдена');
                 return;
             }
-            // Основной метод через Telegram API
             try {
                 tg.openLink(link, { try_instant_view: false });
-                document.getElementById('status').innerText = 'Попытка открыть Happ...';
+                document.getElementById('status').innerText = '⏳ Открываем Happ…';
             } catch (e) {
-                console.log('tg.openLink failed, trying window.open');
-                // Если API недоступен, пробуем обычный window.open
                 const newWindow = window.open(link, '_blank');
                 if (!newWindow) {
                     document.getElementById('status').innerText = 'Не удалось открыть автоматически. Скопируйте ссылку вручную.';
@@ -103,11 +155,21 @@
         function copyLink() {
             if (!link) return;
             navigator.clipboard.writeText(link).then(() => {
-                alert('Ссылка скопирована! Вставьте её в Happ (Добавить профиль → Импорт).');
+                alert('✅ Ссылка скопирована! Вставьте её в Happ (Добавить профиль → Импорт).');
             }).catch(() => {
                 prompt('Скопируйте ссылку вручную:', link);
             });
         }
+
+        window.addEventListener('load', function() {
+            if (link) {
+                setTimeout(() => {
+                    try {
+                        tg.openLink(link, { try_instant_view: false });
+                    } catch (e) {}
+                }, 600);
+            }
+        });
     </script>
 </body>
 </html>
