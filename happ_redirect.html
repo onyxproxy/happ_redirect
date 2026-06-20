@@ -3,26 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Подключение Happ VPN</title>
+    <title>OnyxProxy · Подключение</title>
     <style>
         :root {
-            --bg-color: #f2f2f7; /* Цвет фона как в iOS */
+            --onyx-magenta: #d81b60;
+            --onyx-magenta-light: #fce4ec;
+            --onyx-magenta-dark: #ad1457;
+            --bg: #fafafa;
             --card-bg: #ffffff;
-            --text-main: #000000;
-            --text-secondary: #3c3c43;
-            --blue-primary: #007aff;
-            --blue-light: #e5f0ff;
+            --text: #1a1a1a;
+            --text-secondary: #555;
+            --shadow: 0 4px 20px rgba(0,0,0,0.06);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: var(--bg-color);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
             margin: 0;
-            padding: 20px 16px;
+            padding: 18px 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            color: var(--text-main);
+            color: var(--text);
         }
 
         .container {
@@ -30,50 +32,43 @@
             width: 100%;
         }
 
-        .header-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin: 10px 0 8px;
+        .brand-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--onyx-magenta);
             text-align: center;
+            margin-bottom: 6px;
+            letter-spacing: -0.3px;
         }
 
-        .header-subtitle {
-            font-size: 15px;
+        .brand-subtitle {
+            font-size: 14px;
             color: var(--text-secondary);
             text-align: center;
             margin-bottom: 24px;
-            line-height: 1.3;
+            line-height: 1.4;
         }
 
-        /* Главная карточка */
         .card {
             background: var(--card-bg);
-            border-radius: 20px;
-            padding: 24px 16px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+            border-radius: 22px;
+            padding: 24px 16px 20px;
+            box-shadow: var(--shadow);
             margin-bottom: 24px;
             text-align: center;
         }
 
-        .card-subtitle {
-            font-size: 13px;
-            color: var(--text-secondary);
-            margin-bottom: 16px;
-        }
-
-        /* Место под картинку с телефонами */
-        .illustration-placeholder {
+        .illustration {
             width: 100%;
-            max-width: 280px;
+            max-width: 260px;
             height: auto;
-            margin: 0 auto 20px;
+            margin: 0 auto 18px;
             display: block;
             border-radius: 12px;
         }
 
-        /* Главная кнопка */
         .btn-primary {
-            background: linear-gradient(180deg, #3291ff 0%, #007aff 100%);
+            background: linear-gradient(135deg, var(--onyx-magenta) 0%, var(--onyx-magenta-dark) 100%);
             color: #fff;
             border: none;
             border-radius: 14px;
@@ -82,7 +77,7 @@
             font-weight: 600;
             width: 100%;
             cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0, 122, 255, 0.3);
+            box-shadow: 0 4px 14px rgba(216,27,96,0.3);
             transition: opacity 0.2s;
             display: flex;
             justify-content: center;
@@ -91,45 +86,44 @@
         }
 
         .btn-primary:active {
-            opacity: 0.8;
+            opacity: 0.85;
         }
 
         .status {
             margin-top: 12px;
             font-size: 13px;
-            color: #666;
+            color: var(--text-secondary);
         }
 
-        /* Блок с магазинами */
         .stores-title {
             font-size: 15px;
             font-weight: 600;
             text-align: center;
-            margin-bottom: 16px;
-            color: var(--text-main);
+            margin-bottom: 12px;
+            color: var(--text);
         }
 
         .store-grid {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             justify-content: space-between;
-            margin-bottom: 24px;
+            margin-bottom: 22px;
         }
 
         .store-card {
             background: var(--card-bg);
             border-radius: 16px;
-            padding: 16px 8px;
+            padding: 14px 6px;
             flex: 1;
             text-align: center;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+            box-shadow: var(--shadow);
             text-decoration: none;
-            color: var(--text-main);
+            color: var(--text);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
-            transition: transform 0.1s;
+            gap: 8px;
+            transition: transform 0.15s;
         }
 
         .store-card:active {
@@ -137,105 +131,94 @@
         }
 
         .store-card img {
-            width: 42px;
-            height: 42px;
+            width: 38px;
+            height: 38px;
         }
 
         .store-label {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
         }
 
-        .store-subicon {
-            width: 16px;
-            height: 16px;
-            margin-top: -4px;
-        }
-
-        /* Спойлер с ручным вводом */
         .spoiler-card {
-            background: var(--blue-light);
+            background: var(--onyx-magenta-light);
             border-radius: 16px;
-            padding: 16px;
+            padding: 14px;
             text-align: left;
         }
 
         details summary {
-            color: var(--blue-primary);
+            color: var(--onyx-magenta);
             font-weight: 600;
-            font-size: 15px;
+            font-size: 14px;
             cursor: pointer;
             outline: none;
             display: flex;
             align-items: center;
             gap: 6px;
         }
-        
+
         details summary::-webkit-details-marker {
             display: none;
         }
 
         .spoiler-text {
             font-size: 13px;
-            color: var(--text-main);
-            margin: 12px 0 8px 0;
+            margin: 12px 0 8px;
             line-height: 1.4;
         }
 
         .code-box {
-            background: var(--card-bg);
+            background: #fff;
             border-radius: 10px;
-            padding: 12px;
+            padding: 10px;
             font-family: monospace;
             font-size: 12px;
-            color: var(--text-main);
             word-break: break-all;
-            border: 1px solid #d1d1d6;
+            border: 1px solid #e0e0e0;
             display: block;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .btn-copy {
             background: transparent;
-            color: var(--text-main);
+            color: var(--text);
             font-weight: 500;
-            font-size: 15px;
+            font-size: 14px;
             border: none;
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             border-radius: 10px;
         }
-        
+
         .btn-copy:active {
             background: rgba(0,0,0,0.05);
         }
-
     </style>
 </head>
 <body>
-
 <div class="container">
-    <div class="header-title">🚀 Автонастройка Happ</div>
-    <div class="header-subtitle">Нажмите кнопку ниже, чтобы открыть<br>приложение Happ и импортировать<br>подписку.</div>
+    <div class="brand-title">⚡ OnyxProxy</div>
+    <div class="brand-subtitle">Быстрый и безопасный VPN</div>
 
     <div class="card">
-        <div class="card-subtitle">Автонастройка в 1 клик</div>
-        
-        <img class="illustration-placeholder" src="https://placehold.co/400x250/eef2f6/8e8e93?text=Картинка+с+телефонами" alt="Импорт ключа">
-        
-        <button class="btn-primary" id="openBtn" onclick="openHapp()">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-            Подключиться к VPN
+        <img class="illustration" src="https://placehold.co/400x250/fce4ec/d81b60?text=📱+Импорт+ключа" alt="Импорт ключа">
+
+        <button class="btn-primary" onclick="openHapp()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+            Подключиться
         </button>
         <div class="status" id="status"></div>
     </div>
 
-    <div class="stores-title">📱 Ещё нет приложения? Скачайте для вашего устройства:</div>
+    <div class="stores-title">📱 Нет приложения? Скачайте:</div>
     <div class="store-grid">
         <a class="store-card" href="https://apps.apple.com/ru/app/happ-proxy-utility-plus/id6746188973" target="_blank" rel="noopener">
             <img src="https://img.icons8.com/color/96/mac-os.png" alt="iOS">
@@ -254,18 +237,23 @@
     <div class="spoiler-card">
         <details>
             <summary>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-                Свернуть/Развернуть ссылку
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                </svg>
+                Ручная установка (ссылка)
             </summary>
-            <div class="spoiler-text">Скопируйте эту строку и вставьте в Happ (Добавить профиль → Импорт):</div>
+            <div class="spoiler-text">Скопируйте и вставьте в Happ (Добавить профиль → Импорт):</div>
             <code class="code-box" id="link"></code>
             <button class="btn-copy" onclick="copyLink()">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                </svg>
                 Скопировать ссылку
             </button>
         </details>
     </div>
-
 </div>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -289,7 +277,7 @@
         } catch (e) {
             const newWindow = window.open(link, '_blank');
             if (!newWindow) {
-                document.getElementById('status').innerText = 'Не удалось открыть автоматически. Разверните спойлер ниже и скопируйте ссылку.';
+                document.getElementById('status').innerText = 'Не удалось открыть автоматически. Воспользуйтесь ручной установкой ниже.';
             } else {
                 document.getElementById('status').innerText = 'Приложение должно открыться в новом окне.';
             }
@@ -308,13 +296,10 @@
     window.addEventListener('load', function() {
         if (link) {
             setTimeout(() => {
-                try {
-                    tg.openLink(link, { try_instant_view: false });
-                } catch (e) {}
-            }, 600);
+                try { tg.openLink(link, { try_instant_view: false }); } catch (e) {}
+            }, 500);
         }
     });
 </script>
-
 </body>
 </html>
