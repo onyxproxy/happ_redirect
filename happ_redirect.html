@@ -70,13 +70,29 @@
             background: #f9f9f9;
             padding: 12px;
             border-radius: 10px;
-        }
-        code {
-            background: #eee;
-            padding: 4px 8px;
-            border-radius: 6px;
-            word-break: break-all;
             font-size: 14px;
+        }
+        .spoiler {
+            margin-top: 15px;
+            text-align: left;
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .spoiler summary {
+            font-weight: bold;
+            cursor: pointer;
+            color: #007aff;
+        }
+        .spoiler code {
+            font-size: 12px;
+            word-break: break-all;
+            background: #e9e9e9;
+            padding: 4px 6px;
+            border-radius: 4px;
+            display: inline-block;
+            max-width: 100%;
+            overflow-wrap: anywhere;
         }
         .status {
             margin-top: 10px;
@@ -116,13 +132,18 @@
         </div>
     </div>
 
-    <!-- Ручное копирование -->
-    <div class="fallback">
-        <p>Не открылось? Скопируйте ссылку и вставьте в Happ вручную:</p>
-        <code id="link"></code>
-        <br><br>
-        <button onclick="copyLink()">Скопировать ссылку</button>
+    <!-- Спойлер с длинной ссылкой и кнопкой копирования -->
+    <div class="spoiler">
+        <details>
+            <summary>🔗 Развернуть ссылку для ручного ввода</summary>
+            <p style="font-size:12px; margin-bottom:5px;">Скопируйте эту строку и вставьте в Happ (Добавить профиль → Импорт):</p>
+            <code id="link"></code>
+            <br>
+            <button onclick="copyLink()" style="margin-top:8px; width:auto; padding:8px 16px; font-size:14px;">📋 Скопировать ссылку</button>
+        </details>
     </div>
+
+    <!-- Старый блок fallback убран, так как всё уже в спойлере -->
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
@@ -145,7 +166,7 @@
             } catch (e) {
                 const newWindow = window.open(link, '_blank');
                 if (!newWindow) {
-                    document.getElementById('status').innerText = 'Не удалось открыть автоматически. Скопируйте ссылку вручную.';
+                    document.getElementById('status').innerText = 'Не удалось открыть автоматически. Разверните спойлер ниже и скопируйте ссылку.';
                 } else {
                     document.getElementById('status').innerText = 'Приложение должно открыться в новом окне.';
                 }
