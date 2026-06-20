@@ -6,79 +6,93 @@
     <title>OnyxProxy · Подключение</title>
     <style>
         :root {
-            --onyx-magenta: #d81b60;
-            --onyx-magenta-light: #fce4ec;
-            --onyx-magenta-dark: #ad1457;
-            --bg: #fafafa;
-            --card-bg: #ffffff;
-            --text: #1a1a1a;
-            --text-secondary: #555;
-            --shadow: 0 4px 20px rgba(0,0,0,0.06);
+            --magenta: #d81b60;
+            --magenta-light: #f06292;
+            --magenta-dark: #ad1457;
+            --bg-dark: #0f0f1a;
+            --card-glass: rgba(255, 255, 255, 0.06);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text: #ffffff;
+            --text-secondary: #b0b0c0;
+            --glow: 0 0 20px rgba(216, 27, 96, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg);
-            margin: 0;
-            padding: 18px 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            background: var(--bg-dark);
+            background-image: radial-gradient(circle at 50% 0%, #1a1a35 0%, #0f0f1a 60%);
             color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 20px 16px;
         }
 
         .container {
             max-width: 400px;
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Стеклянная карточка */
+        .glass {
+            background: var(--card-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 24px 18px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), var(--glow);
         }
 
         .brand-title {
-            font-size: 26px;
+            font-size: 30px;
             font-weight: 800;
-            color: var(--onyx-magenta);
+            background: linear-gradient(135deg, var(--magenta-light) 0%, var(--magenta) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             text-align: center;
-            margin-bottom: 6px;
-            letter-spacing: -0.3px;
+            margin-bottom: 4px;
         }
 
         .brand-subtitle {
             font-size: 14px;
             color: var(--text-secondary);
             text-align: center;
-            margin-bottom: 24px;
-            line-height: 1.4;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: 22px;
-            padding: 24px 16px 20px;
-            box-shadow: var(--shadow);
-            margin-bottom: 24px;
-            text-align: center;
+            margin-bottom: 8px;
         }
 
         .illustration {
             width: 100%;
-            max-width: 260px;
+            max-width: 240px;
             height: auto;
-            margin: 0 auto 18px;
+            margin: 0 auto 20px;
             display: block;
-            border-radius: 12px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--onyx-magenta) 0%, var(--onyx-magenta-dark) 100%);
+            background: linear-gradient(135deg, var(--magenta) 0%, var(--magenta-dark) 100%);
             color: #fff;
             border: none;
-            border-radius: 14px;
+            border-radius: 16px;
             padding: 16px;
             font-size: 17px;
             font-weight: 600;
             width: 100%;
             cursor: pointer;
-            box-shadow: 0 4px 14px rgba(216,27,96,0.3);
-            transition: opacity 0.2s;
+            box-shadow: 0 8px 24px rgba(216, 27, 96, 0.4);
+            transition: transform 0.1s ease, box-shadow 0.2s;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -86,69 +100,78 @@
         }
 
         .btn-primary:active {
-            opacity: 0.85;
+            transform: scale(0.97);
+            box-shadow: 0 4px 16px rgba(216, 27, 96, 0.6);
         }
 
         .status {
             margin-top: 12px;
             font-size: 13px;
             color: var(--text-secondary);
+            text-align: center;
         }
 
         .stores-title {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
+            color: var(--text-secondary);
             text-align: center;
-            margin-bottom: 12px;
-            color: var(--text);
+            margin-bottom: 6px;
         }
 
         .store-grid {
             display: flex;
             gap: 10px;
             justify-content: space-between;
-            margin-bottom: 22px;
         }
 
         .store-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 14px 6px;
+            background: var(--card-glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            padding: 16px 8px;
             flex: 1;
             text-align: center;
-            box-shadow: var(--shadow);
             text-decoration: none;
             color: var(--text);
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 8px;
-            transition: transform 0.15s;
+            transition: transform 0.15s, box-shadow 0.2s;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
         }
 
         .store-card:active {
             transform: scale(0.96);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
         }
 
         .store-card img {
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
         }
 
         .store-label {
             font-size: 13px;
             font-weight: 500;
+            color: var(--text-secondary);
         }
 
-        .spoiler-card {
-            background: var(--onyx-magenta-light);
-            border-radius: 16px;
-            padding: 14px;
-            text-align: left;
+        .spoiler-glass {
+            background: var(--card-glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 16px;
         }
 
         details summary {
-            color: var(--onyx-magenta);
+            color: var(--magenta-light);
             font-weight: 600;
             font-size: 14px;
             cursor: pointer;
@@ -164,28 +187,31 @@
 
         .spoiler-text {
             font-size: 13px;
+            color: var(--text-secondary);
             margin: 12px 0 8px;
             line-height: 1.4;
         }
 
         .code-box {
-            background: #fff;
-            border-radius: 10px;
-            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 12px;
             font-family: monospace;
             font-size: 12px;
+            color: #e0e0e0;
             word-break: break-all;
-            border: 1px solid #e0e0e0;
+            border: 1px solid rgba(255,255,255,0.08);
             display: block;
             margin-bottom: 10px;
         }
 
         .btn-copy {
-            background: transparent;
+            background: rgba(255, 255, 255, 0.06);
             color: var(--text);
             font-weight: 500;
             font-size: 14px;
-            border: none;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
             width: 100%;
             padding: 10px;
             cursor: pointer;
@@ -193,21 +219,22 @@
             justify-content: center;
             align-items: center;
             gap: 6px;
-            border-radius: 10px;
+            backdrop-filter: blur(8px);
+            transition: background 0.2s;
         }
 
         .btn-copy:active {
-            background: rgba(0,0,0,0.05);
+            background: rgba(255, 255, 255, 0.12);
         }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="brand-title">⚡ OnyxProxy</div>
-    <div class="brand-subtitle">Быстрый и безопасный VPN</div>
+    <div class="brand-subtitle">Премиальный VPN с автонастройкой</div>
 
-    <div class="card">
-        <img class="illustration" src="https://placehold.co/400x250/fce4ec/d81b60?text=📱+Импорт+ключа" alt="Импорт ключа">
+    <div class="glass" style="text-align: center;">
+        <img class="illustration" src="https://placehold.co/400x250/2a1a3a/d81b60?text=🔐+Ваш+ключ+готов" alt="Импорт ключа">
 
         <button class="btn-primary" onclick="openHapp()">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -234,7 +261,7 @@
         </a>
     </div>
 
-    <div class="spoiler-card">
+    <div class="spoiler-glass">
         <details>
             <summary>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
