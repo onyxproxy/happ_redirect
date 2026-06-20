@@ -5,192 +5,319 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Подключение Happ VPN</title>
     <style>
+        :root {
+            --bg-color: #f2f2f7; /* Цвет фона как в iOS */
+            --card-bg: #ffffff;
+            --text-main: #000000;
+            --text-secondary: #3c3c43;
+            --blue-primary: #007aff;
+            --blue-light: #e5f0ff;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            text-align: center;
-            padding: 20px;
-            background: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg-color);
             margin: 0;
+            padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-main);
         }
-        h2 {
-            margin-top: 10px;
-            margin-bottom: 5px;
+
+        .container {
+            max-width: 400px;
+            width: 100%;
         }
-        button {
-            display: inline-block;
-            margin: 10px 0;
-            padding: 14px 24px;
-            background: #007aff;
+
+        .header-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 10px 0 8px;
+            text-align: center;
+        }
+
+        .header-subtitle {
+            font-size: 15px;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 24px;
+            line-height: 1.3;
+        }
+
+        /* Главная карточка */
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 24px 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .card-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        /* Место под картинку с телефонами */
+        .illustration-placeholder {
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+            margin: 0 auto 20px;
+            display: block;
+            border-radius: 12px;
+        }
+
+        /* Главная кнопка */
+        .btn-primary {
+            background: linear-gradient(180deg, #3291ff 0%, #007aff 100%);
             color: #fff;
             border: none;
-            border-radius: 12px;
-            font-size: 16px;
+            border-radius: 14px;
+            padding: 16px;
+            font-size: 17px;
+            font-weight: 600;
+            width: 100%;
             cursor: pointer;
-            width: 80%;
-            max-width: 300px;
-        }
-        .store-buttons {
-            margin-top: 25px;
-            border-top: 1px solid #eee;
-            padding-top: 20px;
-        }
-        .store-buttons p {
-            margin-bottom: 10px;
-            color: #333;
-            font-weight: bold;
-        }
-        .store-icons {
+            box-shadow: 0 2px 10px rgba(0, 122, 255, 0.3);
+            transition: opacity 0.2s;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
+            gap: 8px;
         }
-        .store-icon {
-            display: inline-block;
-            transition: transform 0.2s;
+
+        .btn-primary:active {
+            opacity: 0.8;
         }
-        .store-icon img {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        }
-        .store-icon:hover {
-            transform: scale(1.1);
-        }
-        .store-label {
-            font-size: 12px;
-            color: #555;
-            margin-top: 4px;
-        }
-        .fallback {
-            margin-top: 25px;
-            color: #555;
-            background: #f9f9f9;
-            padding: 12px;
-            border-radius: 10px;
-            font-size: 14px;
-        }
-        .spoiler {
-            margin-top: 15px;
-            text-align: left;
-            background: #f5f5f5;
-            padding: 10px;
-            border-radius: 8px;
-        }
-        .spoiler summary {
-            font-weight: bold;
-            cursor: pointer;
-            color: #007aff;
-        }
-        .spoiler code {
-            font-size: 12px;
-            word-break: break-all;
-            background: #e9e9e9;
-            padding: 4px 6px;
-            border-radius: 4px;
-            display: inline-block;
-            max-width: 100%;
-            overflow-wrap: anywhere;
-        }
+
         .status {
-            margin-top: 10px;
-            font-size: 14px;
+            margin-top: 12px;
+            font-size: 13px;
             color: #666;
         }
+
+        /* Блок с магазинами */
+        .stores-title {
+            font-size: 15px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 16px;
+            color: var(--text-main);
+        }
+
+        .store-grid {
+            display: flex;
+            gap: 12px;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .store-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 16px 8px;
+            flex: 1;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+            text-decoration: none;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.1s;
+        }
+
+        .store-card:active {
+            transform: scale(0.96);
+        }
+
+        .store-card img {
+            width: 42px;
+            height: 42px;
+        }
+
+        .store-label {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .store-subicon {
+            width: 16px;
+            height: 16px;
+            margin-top: -4px;
+        }
+
+        /* Спойлер с ручным вводом */
+        .spoiler-card {
+            background: var(--blue-light);
+            border-radius: 16px;
+            padding: 16px;
+            text-align: left;
+        }
+
+        details summary {
+            color: var(--blue-primary);
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            outline: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .spoiler-text {
+            font-size: 13px;
+            color: var(--text-main);
+            margin: 12px 0 8px 0;
+            line-height: 1.4;
+        }
+
+        .code-box {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 12px;
+            font-family: monospace;
+            font-size: 12px;
+            color: var(--text-main);
+            word-break: break-all;
+            border: 1px solid #d1d1d6;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .btn-copy {
+            background: transparent;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 15px;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            border-radius: 10px;
+        }
+        
+        .btn-copy:active {
+            background: rgba(0,0,0,0.05);
+        }
+
     </style>
 </head>
 <body>
-    <h2>🚀 Автонастройка Happ</h2>
-    <p>Нажмите кнопку ниже, чтобы открыть приложение Happ и импортировать подписку.</p>
-    <button id="openBtn" onclick="openHapp()">Открыть Happ</button>
-    <div class="status" id="status"></div>
 
-    <!-- Блок со ссылками на скачивание -->
-    <div class="store-buttons">
-        <p>📱 Ещё нет приложения? Скачайте под ваше устройство:</p>
-        <div class="store-icons">
-            <div>
-                <a class="store-icon" href="https://apps.apple.com/ru/app/happ-proxy-utility-plus/id6746188973" target="_blank" rel="noopener">
-                    <img src="https://img.icons8.com/color/48/mac-os.png" alt="iOS">
-                </a>
-                <div class="store-label">iOS</div>
-            </div>
-            <div>
-                <a class="store-icon" href="https://play.google.com/store/apps/details?id=com.happproxy" target="_blank" rel="noopener">
-                    <img src="https://img.icons8.com/color/48/android-os.png" alt="Android">
-                </a>
-                <div class="store-label">Android</div>
-            </div>
-            <div>
-                <a class="store-icon" href="https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe" target="_blank" rel="noopener">
-                    <img src="https://img.icons8.com/color/48/windows-10.png" alt="Windows">
-                </a>
-                <div class="store-label">Windows</div>
-            </div>
-        </div>
+<div class="container">
+    <div class="header-title">🚀 Автонастройка Happ</div>
+    <div class="header-subtitle">Нажмите кнопку ниже, чтобы открыть<br>приложение Happ и импортировать<br>подписку.</div>
+
+    <div class="card">
+        <div class="card-subtitle">Автонастройка в 1 клик</div>
+        
+        <img class="illustration-placeholder" src="https://placehold.co/400x250/eef2f6/8e8e93?text=Картинка+с+телефонами" alt="Импорт ключа">
+        
+        <button class="btn-primary" id="openBtn" onclick="openHapp()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            Открыть Happ
+        </button>
+        <div class="status" id="status"></div>
     </div>
 
-    <!-- Спойлер с длинной ссылкой и кнопкой копирования -->
-    <div class="spoiler">
+    <div class="stores-title">📱 Ещё нет приложения? Скачайте для вашего устройства:</div>
+    <div class="store-grid">
+        <a class="store-card" href="https://apps.apple.com/ru/app/happ-proxy-utility-plus/id6746188973" target="_blank" rel="noopener">
+            <img src="https://img.icons8.com/color/96/mac-os.png" alt="iOS">
+            <div class="store-label">iOS</div>
+            <img class="store-subicon" src="https://img.icons8.com/color/48/app-store.png" alt="App Store">
+        </a>
+        <a class="store-card" href="https://play.google.com/store/apps/details?id=com.happproxy" target="_blank" rel="noopener">
+            <img src="https://img.icons8.com/color/96/android-os.png" alt="Android">
+            <div class="store-label">Android</div>
+            <img class="store-subicon" src="https://img.icons8.com/color/48/google-play.png" alt="Google Play">
+        </a>
+        <a class="store-card" href="https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe" target="_blank" rel="noopener">
+            <img src="https://img.icons8.com/color/96/windows-10.png" alt="Windows">
+            <div class="store-label">Windows</div>
+            <img class="store-subicon" src="https://img.icons8.com/color/48/windows-store.png" alt="Windows Store">
+        </a>
+    </div>
+
+    <div class="spoiler-card">
         <details>
-            <summary>🔗 Развернуть ссылку для ручного ввода</summary>
-            <p style="font-size:12px; margin-bottom:5px;">Скопируйте эту строку и вставьте в Happ (Добавить профиль → Импорт):</p>
-            <code id="link"></code>
-            <br>
-            <button onclick="copyLink()" style="margin-top:8px; width:auto; padding:8px 16px; font-size:14px;">📋 Скопировать ссылку</button>
+            <summary>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                Свернуть/Развернуть ссылку
+            </summary>
+            <div class="spoiler-text">Скопируйте эту строку и вставьте в Happ (Добавить профиль → Импорт):</div>
+            <code class="code-box" id="link"></code>
+            <button class="btn-copy" onclick="copyLink()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                Скопировать ссылку
+            </button>
         </details>
     </div>
 
-    <!-- Старый блок fallback убран, так как всё уже в спойлере -->
+</div>
 
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script>
-        const params = new URLSearchParams(window.location.search);
-        const link = params.get('link');
-        document.getElementById('link').textContent = link || 'Ссылка не указана';
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const link = params.get('link');
+    document.getElementById('link').textContent = link || 'Ссылка не указана';
 
-        const tg = window.Telegram.WebApp;
-        tg.ready();
-        tg.expand();
+    const tg = window.Telegram.WebApp;
+    tg.ready();
+    tg.expand();
 
-        function openHapp() {
-            if (!link) {
-                alert('Ошибка: ссылка не найдена');
-                return;
-            }
-            try {
-                tg.openLink(link, { try_instant_view: false });
-                document.getElementById('status').innerText = '⏳ Открываем Happ…';
-            } catch (e) {
-                const newWindow = window.open(link, '_blank');
-                if (!newWindow) {
-                    document.getElementById('status').innerText = 'Не удалось открыть автоматически. Разверните спойлер ниже и скопируйте ссылку.';
-                } else {
-                    document.getElementById('status').innerText = 'Приложение должно открыться в новом окне.';
-                }
+    function openHapp() {
+        if (!link) {
+            alert('Ошибка: ссылка не найдена');
+            return;
+        }
+        try {
+            tg.openLink(link, { try_instant_view: false });
+            document.getElementById('status').innerText = '⏳ Открываем Happ…';
+        } catch (e) {
+            const newWindow = window.open(link, '_blank');
+            if (!newWindow) {
+                document.getElementById('status').innerText = 'Не удалось открыть автоматически. Разверните спойлер ниже и скопируйте ссылку.';
+            } else {
+                document.getElementById('status').innerText = 'Приложение должно открыться в новом окне.';
             }
         }
+    }
 
-        function copyLink() {
-            if (!link) return;
-            navigator.clipboard.writeText(link).then(() => {
-                alert('✅ Ссылка скопирована! Вставьте её в Happ (Добавить профиль → Импорт).');
-            }).catch(() => {
-                prompt('Скопируйте ссылку вручную:', link);
-            });
-        }
-
-        window.addEventListener('load', function() {
-            if (link) {
-                setTimeout(() => {
-                    try {
-                        tg.openLink(link, { try_instant_view: false });
-                    } catch (e) {}
-                }, 600);
-            }
+    function copyLink() {
+        if (!link) return;
+        navigator.clipboard.writeText(link).then(() => {
+            alert('✅ Ссылка скопирована! Вставьте её в Happ (Добавить профиль → Импорт).');
+        }).catch(() => {
+            prompt('Скопируйте ссылку вручную:', link);
         });
-    </script>
+    }
+
+    window.addEventListener('load', function() {
+        if (link) {
+            setTimeout(() => {
+                try {
+                    tg.openLink(link, { try_instant_view: false });
+                } catch (e) {}
+            }, 600);
+        }
+    });
+</script>
+
 </body>
 </html>
