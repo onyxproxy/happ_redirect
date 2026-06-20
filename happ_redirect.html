@@ -43,27 +43,58 @@
             gap: 24px;
         }
 
+        /* Анимация появления */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(216, 27, 96, 0.5);
+            }
+            70% {
+                box-shadow: 0 0 0 12px rgba(216, 27, 96, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(216, 27, 96, 0);
+            }
+        }
+
+        @keyframes glowBorder {
+            0% { border-color: rgba(255, 255, 255, 0.08); }
+            50% { border-color: rgba(216, 27, 96, 0.3); }
+            100% { border-color: rgba(255, 255, 255, 0.08); }
+        }
+
         .brand {
             text-align: center;
             width: 100%;
+            animation: fadeInUp 0.8s ease both;
         }
 
         .brand-title {
-            font-size: 34px;
+            font-size: 36px;
             font-weight: 800;
             background: linear-gradient(135deg, var(--magenta-light) 0%, var(--magenta) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 6px;
-            letter-spacing: -0.8px;
-            line-height: 1.2;
+            letter-spacing: -1px;
+            line-height: 1.1;
         }
 
         .brand-subtitle {
             font-size: 13px;
             color: var(--text-secondary);
-            max-width: 260px;
+            max-width: 280px;
             margin: 0 auto;
             line-height: 1.5;
             opacity: 0.9;
@@ -79,6 +110,7 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), var(--glow);
             width: 100%;
             text-align: center;
+            animation: fadeInUp 0.8s ease 0.2s both;
         }
 
         .illustration {
@@ -89,6 +121,7 @@
             display: block;
             border-radius: 16px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            /* Можно заменить на свою гифку VPN */
         }
 
         .btn-primary {
@@ -107,11 +140,13 @@
             justify-content: center;
             align-items: center;
             gap: 8px;
+            animation: pulse 2.5s infinite;
         }
 
         .btn-primary:active {
             transform: scale(0.97);
             box-shadow: 0 4px 16px rgba(216, 27, 96, 0.6);
+            animation: none;
         }
 
         .status {
@@ -125,6 +160,7 @@
             font-weight: 600;
             color: var(--text-secondary);
             text-align: center;
+            animation: fadeInUp 0.8s ease 0.4s both;
         }
 
         .store-grid {
@@ -132,6 +168,7 @@
             gap: 10px;
             justify-content: center;
             width: 100%;
+            animation: fadeInUp 0.8s ease 0.6s both;
         }
 
         .store-card {
@@ -149,13 +186,18 @@
             flex-direction: column;
             align-items: center;
             gap: 8px;
-            transition: transform 0.15s, box-shadow 0.2s;
+            transition: transform 0.15s, box-shadow 0.2s, border-color 0.4s;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
         }
 
         .store-card:active {
             transform: scale(0.96);
             box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .store-card:hover {
+            border-color: var(--magenta);
+            animation: glowBorder 2s infinite;
         }
 
         .store-card img {
@@ -178,6 +220,7 @@
             border-radius: 20px;
             padding: 16px;
             width: 100%;
+            animation: fadeInUp 0.8s ease 0.8s both;
         }
 
         details summary {
@@ -241,12 +284,13 @@
 <body>
 <div class="container">
     <div class="brand">
-        <div class="brand-title">⚡ OnyxProxy</div>
+        <div class="brand-title">OnyxProxy</div>
         <div class="brand-subtitle">Ваш персональный VPN-ключ готов к импорту</div>
     </div>
 
     <div class="glass">
-        <img class="illustration" src="https://placehold.co/400x250/2a1a3a/d81b60?text=🔐+Ваш+ключ+готов" alt="Импорт ключа">
+        <!-- ЗАМЕНИТЕ ССЫЛКУ НА СВОЮ ГИФКУ С VPN-ПОДКЛЮЧЕНИЕМ -->
+        <img class="illustration" src="https://placehold.co/400x250/2a1a3a/d81b60?text=🔐+VPN+Connect" alt="VPN подключение">
 
         <button class="btn-primary" onclick="openHapp()">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
