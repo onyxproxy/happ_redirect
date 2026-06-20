@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OnyxProxy · Подключение</title>
+    <!-- Пиксельный шрифт Press Start 2P -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         :root {
             --magenta: #d81b60;
@@ -43,7 +45,6 @@
             gap: 28px;
         }
 
-        /* Анимация появления */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -80,19 +81,19 @@
         }
 
         .brand-title {
-            font-size: 48px;
-            font-weight: 900;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 28px;
+            font-weight: 400;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            background: linear-gradient(135deg, var(--magenta-light) 0%, var(--magenta) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.1;
+            letter-spacing: 2px;
+            color: var(--magenta-light);
+            text-shadow:
+                2px 2px 0 var(--magenta-dark),
+                4px 4px 0 rgba(0, 0, 0, 0.5);
+            line-height: 1.4;
             margin-bottom: 0;
+            word-break: break-word;
         }
-
-        /* Подзаголовок полностью убран */
 
         .glass {
             background: var(--card-glass);
