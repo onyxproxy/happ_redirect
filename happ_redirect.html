@@ -31,7 +31,7 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            padding: 24px 16px;
+            padding: 28px 16px;
         }
 
         .container {
@@ -40,7 +40,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 24px;
+            gap: 28px;
         }
 
         /* Анимация появления */
@@ -80,25 +80,19 @@
         }
 
         .brand-title {
-            font-size: 36px;
-            font-weight: 800;
+            font-size: 48px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
             background: linear-gradient(135deg, var(--magenta-light) 0%, var(--magenta) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 6px;
-            letter-spacing: -1px;
             line-height: 1.1;
+            margin-bottom: 0;
         }
 
-        .brand-subtitle {
-            font-size: 13px;
-            color: var(--text-secondary);
-            max-width: 280px;
-            margin: 0 auto;
-            line-height: 1.5;
-            opacity: 0.9;
-        }
+        /* Подзаголовок полностью убран */
 
         .glass {
             background: var(--card-glass);
@@ -121,7 +115,6 @@
             display: block;
             border-radius: 16px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-            /* Можно заменить на свою гифку VPN */
         }
 
         .btn-primary {
@@ -284,12 +277,10 @@
 <body>
 <div class="container">
     <div class="brand">
-        <div class="brand-title">OnyxProxy</div>
-        <div class="brand-subtitle">Ваш персональный VPN-ключ готов к импорту</div>
+        <div class="brand-title">ONYXPROXY</div>
     </div>
 
     <div class="glass">
-        <!-- ЗАМЕНИТЕ ССЫЛКУ НА СВОЮ ГИФКУ С VPN-ПОДКЛЮЧЕНИЕМ -->
         <img class="illustration" src="https://onyxproxy.github.io/happ_redirect/gif.gif" alt="VPN подключение">
 
         <button class="btn-primary" onclick="openHapp()">
